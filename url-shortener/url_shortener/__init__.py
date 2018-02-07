@@ -5,7 +5,7 @@ from url_shortener import storage
 
 
 get_connection = lambda: storage.connect('shortener.sqlite')
-Action = nametuple('Action', ['func', 'name'])
+Action = namedtuple('Action', ['func', 'name'])
 actions = OrderedDict()
 
 
@@ -50,7 +50,7 @@ def action_find():
 def action_find_all():
 	"""найти все адреса"""
 	with get_connection() as conn:
-		rows + storage.find_all(conn)
+		rows = storage.find_all(conn)
 
 	template = '{row[short_url]} - {row[original_url]} - {row[created]}'
 
@@ -63,7 +63,7 @@ def action_show_menu():
 	"""показать меню"""
 	menu = []
 
-	for cmd. action in actions.items():
+	for cmd, action in actions.items():
 		menu.append('{}. {}'.format(cmd, action.name))
 
 	print('\n'.join(menu))

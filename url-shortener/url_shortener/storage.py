@@ -35,7 +35,7 @@ def dict_factory(cursor, row):
 	print('==> Row', row)
 	print('==>', cursor.description)
 
-	for idx, col in enumerate(cursor.descriotion):
+	for idx, col in enumerate(cursor.description):
 		d[col[0]] = row[idx]
 
 	return d
@@ -69,15 +69,13 @@ def add_url(conn, url, domain=''):
 		if found:
 			return found.get('short_url')
 
-		cursor = conn.execute(SQL_INSERT_URL, (url,))
+		cursor = conn.execute(_SQL_INSERT_URL, (url,))
 
 		pk = cursor.lastrowid	#последний сгенерированный PK
-		short_url = '{}/{}'.format(domain.strip('/'),
-								  convert(pk))
+		short_url = '{}/{}'.format(domain.strip('/'), pk)
 
 
-		conn.execute(SQL_UPDATE_SHORT_URL, (short_url, pk))
-
+		conn.execute(_SQL_UPDATE_SHORT_URL, (short_url, pk))
 
 		return short_url
 
@@ -102,5 +100,5 @@ def find_url_by_origin(conn, origin_url):
 	url = origin_url.strip('/')
 
 	with conn:
-		cursor = conn.execute(SQL_SELECT_URL_BY_ORIGINAL, (url,))
+		cursor = conn.execute(_SQL_SELECT_URL_BY_ORIGINAL, (url,))
 		return cursor.fetchone()
