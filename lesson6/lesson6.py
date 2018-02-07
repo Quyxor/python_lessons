@@ -79,3 +79,8 @@ with sqlite3.connect(':memory:') as connection:
         print('ДОБРЕ ПОЖОНТЕ, БОЯРЕН: {}'.format(err))
     finally:
         print('И ПИШОВ БЫ ТЫ')
+
+
+''' удаление из БД
+DELETE FROM table WHERE id = ?
+'''
