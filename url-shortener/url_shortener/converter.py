@@ -10,7 +10,7 @@ def convert(number):
 		result.insert(0, valid_values[number % radix])
 		number //= radix
 
-	return ''.join(result)	
+	return ''.join(result)
 
 def inverse(number):
 	result = 0
@@ -19,4 +19,7 @@ def inverse(number):
 		n = valid_values.index(i)
 		result += n * radix ** p
 
-	return result	
+	return result
+
+
+print(inverse('100'))
